@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 
 const tabooWord = ref('')
 
-const countdownIntervalId = ref<number>()
+const countdownIntervalId = ref()
 
 const countDownValue = ref(5)
 
