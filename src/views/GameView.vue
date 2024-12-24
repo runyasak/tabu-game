@@ -15,9 +15,19 @@ watch(countDownValue, () => {
   }
 })
 
-fetch('https://tabu-api-production.up.railway.app/', { method: 'GET' })
-  .then(res => res.text())
-  .then(word => tabooWord.value = word)
+fetchTabooWord()
+
+function resetGame() {
+  countDownValue.value = 5;
+  countdownIntervalId.value = setInterval(() => countDownValue.value--, 1000);
+  fetchTabooWord()
+}
+
+function fetchTabooWord() {
+  fetch('https://tabu-api-production.up.railway.app/', { method: 'GET' })
+    .then(res => res.text())
+    .then(word => tabooWord.value = word)
+}
 </script>
 
 <template>
@@ -31,7 +41,10 @@ fetch('https://tabu-api-production.up.railway.app/', { method: 'GET' })
       </template>
     </div>
 
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col gap-4">
+      <button class="border-2 border-primary text-white px-4 py-2 mx-auto bg-primary" @click="resetGame">
+        Play Again
+      </button>
       <RouterLink :to="{ name: 'home' }"
         class="border-2 border-primary text-white px-4 py-2 mx-auto hover:bg-primary transition-colors duration-300 ease-in-out">
         New Game
